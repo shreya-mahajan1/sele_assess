@@ -28,7 +28,7 @@ pipeline {
                     subject: 'Selenium Test Report', 
                     body: 'Test report.', 
                     attachmentsPattern: 'report.html', 
-                    to: 'sshaktirai@gmail.com' 
+                    to: 'shreya.mhajn@gmail.com' 
                 ) 
             } 
         } 
