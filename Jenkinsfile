@@ -1,29 +1,36 @@
-pipeline {
-    agent any
-    stages {
-        stage('Clone Repository') {
-            steps {
-                git https://github.com/shreya-mahajan1/sele_assess.git
-            }
-        }
-        stage('Install Dependencies') {
-            steps {
-                sh 'pip install -r requirements.txt'
-            }
-        }
-        stage('Run Selenium Tests') {
-            steps {
-                sh 'pytest --html=report.html --self-contained-html'
-            }
-        }
-        stage('Publish Report') {
-            steps {
-                publishHTML(target: [
-                    reportName: 'Test Report',
-                    reportDir: '.',
-                    reportFiles: 'report.html'
-                ])
-            }
-        }
-    }
-}
+pipeline { 
+    agent any 
+ 
+    stages { 
+        stage('Checkout Code') { 
+            steps { 
+                git branch: 'main', url: 'https://github.com/ShivRaiGithub/DevopsAssess.git' 
+            } 
+        } 
+        stage('Install Dependencies') { 
+            steps { 
+                sh 'pip3 install -r requirements.txt' 
+            } 
+        } 
+        stage('Run Selenium Test') { 
+            steps { 
+                sh 'pytest sele.py' 
+            } 
+        } 
+        stage('Archive Test Report') { 
+            steps { 
+                archiveArtifacts artifacts: 'report.html', fingerprint: true 
+            } 
+        } 
+        stage('Send Email') { 
+            steps { 
+                emailext( 
+                    subject: 'Selenium Test Report', 
+                    body: 'Test report.', 
+                    attachmentsPattern: 'report.html', 
+                    to: 'sshaktirai@gmail.com' 
+                ) 
+            } 
+        } 
+    } 
+} 
