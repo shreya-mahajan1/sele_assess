@@ -13,11 +13,10 @@ pipeline {
             }
         }
         stage('Run Selenium Test') {
-        stage('Run Selenium Test') {
-    steps {
-        bat '"C:\\Python312\\python.exe" -m pytest sele.py'
-    }
-}
+            steps {
+                bat '"C:\\Python312\\python.exe" -m pytest sele.py'
+            }
+        }
         stage('Archive Test Report') {
             steps {
                 archiveArtifacts artifacts: 'report.html', fingerprint: true
