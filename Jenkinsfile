@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: https://github.com/shreya-mahajan1/sele_assess.git
+                git https://github.com/shreya-mahajan1/sele_assess.git
             }
         }
         stage('Install Dependencies') {
